@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Landing from "./pages/Landing";
