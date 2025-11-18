@@ -1,10 +1,10 @@
 // import { useState } from 'react';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Cart from "./pages/Cart";
-import Landing from "./pages/Landing";
-import Contact from "./pages/Contact";
+import Login from "../../car-dealership1/src/pages/Login";
+import Cart from "../../car-dealership1/src/pages/Cart";
+import Landing from "../../car-dealership1/src/pages/Landing";
+import Contact from "../../car-dealership1/src/pages/Contact";
 
 
 function App() {
