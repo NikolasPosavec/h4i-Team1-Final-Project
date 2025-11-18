@@ -10,4 +10,4 @@ function Landing(){
     )
 }
 
-export default Logout
+export default Landing
