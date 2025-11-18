@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { BrowserRouter, Routes, Route } from "react-router";
 import Login from "./pages/Login";
@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <BrowserRouter>
