@@ -11,4 +11,4 @@ function Login(){
     )
 }
 
-export default Logout
+export default Login
