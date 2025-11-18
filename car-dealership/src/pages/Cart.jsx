@@ -10,4 +10,4 @@ function Cart(){
     )
 }
 
-export default Logout
+export default Cart

@@ -10,4 +10,4 @@ function Contact(){
     )
 }
 
-export default Logout
+export default Contact
