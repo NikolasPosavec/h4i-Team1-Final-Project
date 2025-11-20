@@ -1,14 +1,55 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../firebase/config";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
-function Login(){
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    return(
-        <>
-        <div> 
-            <h1> Login Page: In Progress</h1> 
-            <button>Login</button> 
-        </div> 
-        </>
-    )
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError(String(err) || "Login failed");
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError(String(err) || "Sign up failed");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleSignUp}>Sign Up</button>
+      <div>
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </div>
+      {error && <div>{error}</div>}
+    </div>
+  );
 }
 
-export default Login
+export default Login;
