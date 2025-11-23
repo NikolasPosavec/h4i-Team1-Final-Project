@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +30,7 @@ function Login() {
 
   return (
     <div>
+      
       <h1>Login</h1>
       <input
         type="email"
