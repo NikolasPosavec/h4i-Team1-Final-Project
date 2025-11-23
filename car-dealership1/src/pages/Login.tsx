@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { auth } from "../firebase/config";
 import {
   signInWithEmailAndPassword,
@@ -46,9 +45,6 @@ function Login() {
       />
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleSignUp}>Sign Up</button>
-      <div>
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </div>
       {error && <div>{error}</div>}
     </div>
   );
