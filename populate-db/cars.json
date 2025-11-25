@@ -1,0 +1,491 @@
+[
+  { "make": "Honda", "model": "CR-V", "year": 2018, "color": "Silver" },
+  { "make": "Toyota", "model": "Camry", "year": 2019, "color": "White" },
+  { "make": "Ford", "model": "F-150", "year": 2017, "color": "Black" },
+  {
+    "make": "Nissan",
+    "model": "Rogue",
+    "year": 2020,
+    "color": "Gunmetal Gray"
+  },
+  {
+    "make": "Honda",
+    "model": "Civic",
+    "year": 2021,
+    "color": "Sonic Gray Pearl"
+  },
+  {
+    "make": "Jeep",
+    "model": "Grand Cherokee",
+    "year": 2016,
+    "color": "Bright Red"
+  },
+  {
+    "make": "Chevrolet",
+    "model": "Equinox",
+    "year": 2018,
+    "color": "Summit White"
+  },
+  { "make": "Ram", "model": "1500", "year": 2020, "color": "Flame Red" },
+  {
+    "make": "Hyundai",
+    "model": "Elantra",
+    "year": 2017,
+    "color": "Electric Blue"
+  },
+  {
+    "make": "Subaru",
+    "model": "Outback",
+    "year": 2019,
+    "color": "Dark Blue Pearl"
+  },
+  {
+    "make": "Toyota",
+    "model": "Corolla",
+    "year": 2020,
+    "color": "Super White"
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-5",
+    "year": 2022,
+    "color": "Deep Crystal Blue"
+  },
+  {
+    "make": "Ford",
+    "model": "Explorer",
+    "year": 2016,
+    "color": "Magnetic Metallic"
+  },
+  {
+    "make": "Kia",
+    "model": "Telluride",
+    "year": 2021,
+    "color": "Black Copper"
+  },
+  { "make": "BMW", "model": "3 Series", "year": 2015, "color": "Alpine White" },
+  { "make": "Toyota", "model": "Tacoma", "year": 2018, "color": "Cement Gray" },
+  { "make": "Nissan", "model": "Altima", "year": 2019, "color": "Pearl White" },
+  {
+    "make": "GMC",
+    "model": "Sierra 1500",
+    "year": 2017,
+    "color": "Onyx Black"
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "year": 2020,
+    "color": "Pure White"
+  },
+  {
+    "make": "Honda",
+    "model": "Accord",
+    "year": 2021,
+    "color": "Crystal Black Pearl"
+  },
+  {
+    "make": "Ford",
+    "model": "Escape",
+    "year": 2018,
+    "color": "Ruby Red Metallic"
+  },
+  {
+    "make": "Hyundai",
+    "model": "Tucson",
+    "year": 2019,
+    "color": "Molten Silver"
+  },
+  {
+    "make": "Subaru",
+    "model": "Forester",
+    "year": 2017,
+    "color": "Ice Silver Metallic"
+  },
+  {
+    "make": "Lexus",
+    "model": "RX 350",
+    "year": 2015,
+    "color": "Nebula Gray Pearl"
+  },
+  {
+    "make": "Toyota",
+    "model": "Highlander",
+    "year": 2020,
+    "color": "Midnight Black Metallic"
+  },
+  { "make": "Dodge", "model": "Charger", "year": 2016, "color": "TorRed" },
+  { "make": "Jeep", "model": "Wrangler", "year": 2021, "color": "Sarge Green" },
+  {
+    "make": "Chevrolet",
+    "model": "Silverado 1500",
+    "year": 2019,
+    "color": "Iridescent Pearl Tricoat"
+  },
+  { "make": "Kia", "model": "Sorento", "year": 2018, "color": "Gravity Blue" },
+  {
+    "make": "Audi",
+    "model": "Q5",
+    "year": 2017,
+    "color": "Mythos Black Metallic"
+  },
+  { "make": "Toyota", "model": "RAV4", "year": 2022, "color": "Lunar Rock" },
+  {
+    "make": "Honda",
+    "model": "Pilot",
+    "year": 2019,
+    "color": "Deep Scarlet Pearl"
+  },
+  { "make": "Ford", "model": "Fusion", "year": 2017, "color": "Ingot Silver" },
+  {
+    "make": "Nissan",
+    "model": "Sentra",
+    "year": 2021,
+    "color": "Fresh Powder"
+  },
+  {
+    "make": "BMW",
+    "model": "X5",
+    "year": 2016,
+    "color": "Black Sapphire Metallic"
+  },
+  {
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "year": 2020,
+    "color": "Cool Gray Khaki"
+  },
+  {
+    "make": "Toyota",
+    "model": "Sienna",
+    "year": 2015,
+    "color": "Predawn Gray Mica"
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Atlas",
+    "year": 2018,
+    "color": "Platinum Gray Metallic"
+  },
+  {
+    "make": "Acura",
+    "model": "MDX",
+    "year": 2019,
+    "color": "Fathom Blue Pearl"
+  },
+  {
+    "make": "Jeep",
+    "model": "Cherokee",
+    "year": 2017,
+    "color": "Billet Silver Metallic"
+  },
+  {
+    "make": "Chevrolet",
+    "model": "Malibu",
+    "year": 2016,
+    "color": "Silver Ice Metallic"
+  },
+  { "make": "Ram", "model": "2500", "year": 2019, "color": "Pearl White" },
+  {
+    "make": "Mercedes-Benz",
+    "model": "C-Class",
+    "year": 2020,
+    "color": "Polar White"
+  },
+  {
+    "make": "Honda",
+    "model": "Odyssey",
+    "year": 2018,
+    "color": "Obsidian Blue Pearl"
+  },
+  {
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2015,
+    "color": "Deep Impact Blue"
+  },
+  {
+    "make": "Toyota",
+    "model": "4Runner",
+    "year": 2021,
+    "color": "Magnetic Gray Metallic"
+  },
+  {
+    "make": "Nissan",
+    "model": "Frontier",
+    "year": 2017,
+    "color": "Cayenne Red Metallic"
+  },
+  { "make": "Hyundai", "model": "Kona", "year": 2020, "color": "Chalk White" },
+  {
+    "make": "GMC",
+    "model": "Acadia",
+    "year": 2018,
+    "color": "Quicksilver Metallic"
+  },
+  { "make": "Kia", "model": "Forte", "year": 2022, "color": "Fire Orange" },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "year": 2019,
+    "color": "Florett Silver Metallic"
+  },
+  {
+    "make": "Honda",
+    "model": "HR-V",
+    "year": 2016,
+    "color": "Modern Steel Metallic"
+  },
+  {
+    "make": "Toyota",
+    "model": "Prius",
+    "year": 2017,
+    "color": "Classic Silver Metallic"
+  },
+  { "make": "Ford", "model": "Edge", "year": 2019, "color": "Blue Metallic" },
+  {
+    "make": "Chevrolet",
+    "model": "Traverse",
+    "year": 2020,
+    "color": "Black Cherry Metallic"
+  },
+  {
+    "make": "Mazda",
+    "model": "Mazda3",
+    "year": 2021,
+    "color": "Soul Red Crystal"
+  },
+  {
+    "make": "Lexus",
+    "model": "ES 350",
+    "year": 2015,
+    "color": "Satin Cashmere Metallic"
+  },
+  {
+    "make": "Nissan",
+    "model": "Versa",
+    "year": 2018,
+    "color": "Brilliant Silver"
+  },
+  {
+    "make": "Subaru",
+    "model": "Impreza",
+    "year": 2019,
+    "color": "Quartz Blue Pearl"
+  },
+  {
+    "make": "BMW",
+    "model": "5 Series",
+    "year": 2017,
+    "color": "Imperial Blue Metallic"
+  },
+  { "make": "Toyota", "model": "Tundra", "year": 2016, "color": "Super White" },
+  {
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "year": 2020,
+    "color": "Deep Black Pearl"
+  },
+  {
+    "make": "Acura",
+    "model": "RDX",
+    "year": 2021,
+    "color": "Platinum White Pearl"
+  },
+  { "make": "Jeep", "model": "Renegade", "year": 2018, "color": "Anvil" },
+  { "make": "Chevrolet", "model": "Tahoe", "year": 2015, "color": "Black" },
+  {
+    "make": "Ram",
+    "model": "3500",
+    "year": 2022,
+    "color": "Delmonico Red Pearl"
+  },
+  {
+    "make": "Mercedes-Benz",
+    "model": "GLE",
+    "year": 2019,
+    "color": "Iridium Silver Metallic"
+  },
+  {
+    "make": "Honda",
+    "model": "Ridgeline",
+    "year": 2017,
+    "color": "Modern Steel Metallic"
+  },
+  { "make": "Ford", "model": "Ranger", "year": 2020, "color": "Race Red" },
+  {
+    "make": "Toyota",
+    "model": "Venza",
+    "year": 2021,
+    "color": "Titanium Glow"
+  },
+  { "make": "Nissan", "model": "Kicks", "year": 2019, "color": "Fresh Powder" },
+  {
+    "make": "Hyundai",
+    "model": "Sonata",
+    "year": 2018,
+    "color": "Phantom Black"
+  },
+  {
+    "make": "GMC",
+    "model": "Terrain",
+    "year": 2017,
+    "color": "Graphite Gray Metallic"
+  },
+  { "make": "Kia", "model": "Sportage", "year": 2020, "color": "Clear White" },
+  {
+    "make": "Audi",
+    "model": "A6",
+    "year": 2016,
+    "color": "Oolong Gray Metallic"
+  },
+  {
+    "make": "Honda",
+    "model": "Fit",
+    "year": 2015,
+    "color": "Mystic Yellow Pearl"
+  },
+  { "make": "Toyota", "model": "Sequoia", "year": 2022, "color": "Blueprint" },
+  { "make": "Ford", "model": "Bronco Sport", "year": 2021, "color": "Area 51" },
+  {
+    "make": "Chevrolet",
+    "model": "Colorado",
+    "year": 2018,
+    "color": "Red Hot"
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-9",
+    "year": 2019,
+    "color": "Machine Gray Metallic"
+  },
+  { "make": "Lexus", "model": "IS 300", "year": 2017, "color": "Ultra White" },
+  {
+    "make": "Nissan",
+    "model": "Rogue Sport",
+    "year": 2020,
+    "color": "Monarch Orange Metallic"
+  },
+  {
+    "make": "Subaru",
+    "model": "Legacy",
+    "year": 2016,
+    "color": "Lapis Blue Pearl"
+  },
+  {
+    "make": "BMW",
+    "model": "4 Series",
+    "year": 2018,
+    "color": "Sunset Orange Metallic"
+  },
+  {
+    "make": "Toyota",
+    "model": "C-HR",
+    "year": 2020,
+    "color": "Blizzard Pearl"
+  },
+  {
+    "make": "Volkswagen",
+    "model": "Passat",
+    "year": 2017,
+    "color": "Reflex Silver Metallic"
+  },
+  {
+    "make": "Acura",
+    "model": "TLX",
+    "year": 2015,
+    "color": "Bellanova White Pearl"
+  },
+  {
+    "make": "Jeep",
+    "model": "Compass",
+    "year": 2019,
+    "color": "Redline Pearl"
+  },
+  {
+    "make": "Chevrolet",
+    "model": "Blazer",
+    "year": 2021,
+    "color": "Bright Blue Metallic"
+  },
+  {
+    "make": "Ram",
+    "model": "ProMaster City",
+    "year": 2018,
+    "color": "Deep Red"
+  },
+  { "make": "Mercedes-Benz", "model": "GLC", "year": 2020, "color": "Black" },
+  {
+    "make": "Honda",
+    "model": "Clarity",
+    "year": 2017,
+    "color": "Crystal Black Pearl"
+  },
+  {
+    "make": "Ford",
+    "model": "Taurus",
+    "year": 2015,
+    "color": "Guard Metallic"
+  },
+  {
+    "make": "Toyota",
+    "model": "Prius Prime",
+    "year": 2019,
+    "color": "Blue Magnetism"
+  },
+  {
+    "make": "Nissan",
+    "model": "Murano",
+    "year": 2018,
+    "color": "Mocha Almond"
+  },
+  {
+    "make": "Hyundai",
+    "model": "Palisade",
+    "year": 2021,
+    "color": "Abyss Black"
+  },
+  {
+    "make": "GMC",
+    "model": "Yukon",
+    "year": 2022,
+    "color": "White Frost Tricoat"
+  },
+  {
+    "make": "Kia",
+    "model": "Stinger",
+    "year": 2019,
+    "color": "Micro Blue Pearl"
+  },
+  { "make": "Audi", "model": "Q7", "year": 2018, "color": "Carrara White" },
+  {
+    "make": "Honda",
+    "model": "Passport",
+    "year": 2020,
+    "color": "Black Forest Pearl"
+  },
+  {
+    "make": "Toyota",
+    "model": "Avalon",
+    "year": 2017,
+    "color": "Cosmic Gray Mica"
+  },
+  {
+    "make": "Ford",
+    "model": "Expedition",
+    "year": 2019,
+    "color": "Star White Metallic"
+  },
+  {
+    "make": "Chevrolet",
+    "model": "Camaro",
+    "year": 2016,
+    "color": "Garnet Red Tintcoat"
+  },
+  {
+    "make": "Tesla",
+    "model": "Model 3",
+    "year": 2021,
+    "color": "Midnight Silver Metallic"
+  }
+]
