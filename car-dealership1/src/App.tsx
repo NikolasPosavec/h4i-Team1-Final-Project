@@ -7,7 +7,6 @@ import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
-import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -24,10 +23,6 @@ function App() {
         <Route
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}
-        />
-        <Route
-          path="/forgot-password"
-          element={user ? <Navigate to="/" replace /> : <ForgotPassword />}
         />
 
         <Route
