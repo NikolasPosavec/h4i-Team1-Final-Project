@@ -26,60 +26,44 @@ const SearchBar = () => {
 
   const handleSearch = async () => {
     setIsSearching(true);
+    // Clear previous results immediately
+    setSearchResults([]);
+
     try {
       const carsRef = collection(db, "cars");
 
+      setYear("");
+      setPrice("");
+      setModel("");
+      setMake("");
+
       // Parse filter values
-      const makeFilter = make.trim().toLowerCase();
-      const modelFilter = model.trim().toLowerCase();
-      const yearNum = year.trim() ? parseInt(year.trim()) : null;
-      const priceNum = price.trim() ? parseFloat(price.trim()) : null;
+      const makeLower = make.trim().toLowerCase();
+      const makeFilter = make
+        ? makeLower.charAt(0).toUpperCase() + makeLower.slice(1)
+        : null;
+      const modelLower = model.trim().toLowerCase();
+      const modelFilter = model
+        ? modelLower.charAt(0).toUpperCase() + modelLower.slice(1)
+        : null;
+      const yearNum = parseInt(year.trim());
+      const priceNum = parseFloat(price.trim());
 
-      // Track which filters are applied in Firestore query
-      const yearInQuery = yearNum !== null && !isNaN(yearNum);
-      const priceInQuery = priceNum !== null && !isNaN(priceNum) && yearInQuery;
-
-      let q;
-
-      /*
-      if (yearInQuery) {
-        // Year is exact match, so we can combine with price if needed
-        if (priceInQuery) {
-          q = query(
-            carsRef,
-            where("year", "==", yearNum),
-            where("price", "<=", priceNum)
-          );
-        } else {
-          q = query(carsRef, where("year", "==", yearNum));
-        }
-      } else if (priceNum !== null && !isNaN(priceNum)) {
-        // Only price filter (inequality)
-        q = query(carsRef, where("price", "<=", priceNum));
-      } else {
-        // No numeric filters - get all cars and filter in memory
-        q = query(carsRef);
-      }
-        */
-
-      q = query(
-        carsRef,
-        where("make", makeFilter ? "==" : ">=", makeFilter),
-        where("model", modelFilter ? "==" : ">=", modelFilter),
-        where("year", yearNum ? "==" : "!=", yearNum || null),
-        where("price", priceNum ? "<=" : ">", priceNum || null)
-      );
+      let q: any = carsRef;
+      if (makeFilter) q = query(q, where("make", "==", makeFilter));
+      if (modelFilter) q = query(q, where("model", "==", modelFilter));
+      if (yearNum) q = query(q, where("year", "==", yearNum));
+      if (priceNum) q = query(q, where("price", "<=", priceNum));
 
       const querySnapshot = await getDocs(q);
-      let results: Car[] = [];
 
-      querySnapshot.forEach((doc) => {
-        const car = doc.data() as Car;
-        results.push(car);
-      });
+      const results = querySnapshot.docs.map((doc) => ({
+        ...(doc.data() as Car),
+        id: doc.id,
+      }));
 
       setSearchResults(results);
-      console.log(`Found ${results.length} cars matching search criteria`);
+      console.log(results);
     } catch (error) {
       console.error("Error searching cars:", error);
       setSearchResults([]);
