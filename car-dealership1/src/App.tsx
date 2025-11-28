@@ -4,9 +4,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Cart from "./pages/Cart";
 import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
+
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -23,6 +25,10 @@ function App() {
         <Route
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={user ? <Navigate to="/" replace /> : <SignUp />}
         />
 
         <Route

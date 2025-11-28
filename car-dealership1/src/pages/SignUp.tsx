@@ -3,21 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 import ShellFaxLogo from '../assets/ShellFaxLogo.jpeg';
 import {
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 
-function Login() {
+function SignUp() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      setError(String(err) || "Login failed");
+      setError(String(err) || "Sign up failed");
     }
   };
 
@@ -29,10 +29,10 @@ function Login() {
       <div className="flex justify-center">
         <div className="relative w-[548px] h-[646px] bg-[#D1D1D6] rounded-[28px] border-[5px] border-[#0000003D] pt-6">
           <button 
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             className="absolute top-4 left-4 px-4 py-2 text-sm font-medium text-black hover:underline"
           >
-            Sign Up
+            Login
           </button>
           <div className="flex justify-center pt-[9.63px]">
             <div className="w-[60.75px] h-[57.75px] border-2 border-black rounded-full flex flex-col items-center pt-2 relative">
@@ -43,7 +43,7 @@ function Login() {
           </div>
           </div>
           <div className="flex flex-col items-center">
-            <h1 className="font-['Montserrat'] font-bold text-[40px] text-center">LOGIN</h1>
+            <h1 className="font-['Montserrat'] font-bold text-[40px] text-center">SIGN UP</h1>
             <h1 className="font-['Static/Headline Small/Font'] text-[25px] font-medium text-center text-[#00000091]">Join the ShellFax Family!</h1>
           </div>
           
@@ -72,10 +72,10 @@ function Login() {
           </div>
           <div className="flex flex-col items-center mt-10">
             <button 
-              onClick={handleLogin}
+              onClick={handleSignUp}
               className="w-[300px] h-[48px] bg-[#F5BC13] rounded-[24px] text-black font-semibold text-lg hover:bg-[#FF0505]"
             >
-              Login
+              Sign Up
             </button>
           </div>
           {error && <div>{error}</div>}
@@ -85,4 +85,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
