@@ -22,9 +22,9 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="bg-[#FDFBF8]">
       <div>
-        <img src={ShellFaxLogo} alt="ShellFax Logo" className="w-[542px] h-[131px] top-[13px] left-[20px] bg-white" />
+        <img src={ShellFaxLogo} alt="ShellFax Logo" className="w-[542px] h-[131px] top-[13px] left-[20px]" />
       </div>
       <div className="flex justify-center">
         <div className="relative w-[548px] h-[646px] bg-[#D1D1D6] rounded-[28px] border-[5px] border-[#0000003D] pt-6">
