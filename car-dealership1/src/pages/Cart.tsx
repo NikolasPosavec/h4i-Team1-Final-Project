@@ -2,6 +2,8 @@ import Navbar from "../components/navbar";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import type { Car } from "../types";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db, auth } from "../firebase/config";
 
 function Cart() {
   const location = useLocation();
@@ -26,7 +28,7 @@ function Cart() {
 
   //load cart from localStorage whenever the route is visited
   useEffect(() => {
-    setIsLoaded(false); // Reset flag before loading
+    setIsLoaded(false);
     try {
       const savedCart = localStorage.getItem("shellfax_cart");
       if (savedCart) {
@@ -39,7 +41,7 @@ function Cart() {
       console.error("Error loading cart:", error);
       setCartItems([]);
     } finally {
-      setIsLoaded(true); // Enable saving after load completes
+      setIsLoaded(true); 
     }
   }, [location.pathname]);
 
@@ -75,29 +77,87 @@ function Cart() {
     setShowCheckout(true);
   };
 
-  const handleConfirmPayment = (e: React.FormEvent) => {
+  const handleConfirmPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!acceptedTerms) {
       alert("Please accept the terms and conditions");
       return;
     }
-    setCartItems([]);
-    setShowCheckout(false);
-    setShowThankYou(true);
-    setShippingInfo({
-      firstName: "",
-      lastName: "",
-      address: "",
-      zipCode: "",
-      city: "",
-      state: "",
-    });
-    setPaymentInfo({
-      cardNumber: "",
-      expiration: "",
-      cvc: "",
-    });
-    setAcceptedTerms(false);
+
+    try {
+      //get current user
+      const user = auth.currentUser;
+      if (!user) {
+        alert("You must be logged in to place an order");
+        return;
+      }
+
+      //prepare order data
+      const orderData = {
+        userId: user.uid,
+        userEmail: user.email,
+        items: cartItems.map(car => ({
+          carId: car.id,
+          make: car.make,
+          model: car.model,
+          year: car.year,
+          trim: car.trim,
+          color: car.color,
+          price: car.price,
+          mileage: car.mileage,
+          image_url: car.image_url
+        })),
+        shippingInfo: {
+          firstName: shippingInfo.firstName,
+          lastName: shippingInfo.lastName,
+          address: shippingInfo.address,
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          zipCode: shippingInfo.zipCode,
+        },
+        paymentInfo: {
+          method: "Credit Card (simulated)",
+          lastFourDigits: paymentInfo.cardNumber.slice(-4),
+        },
+        pricing: {
+          subtotal: calculateSubtotal(),
+          shipping: calculateShipping(),
+          tax: calculateTax(),
+          total: calculateTotal(),
+        },
+        orderDate: serverTimestamp(),
+        status: "completed",
+      };
+
+      //save order to firebase
+      const ordersRef = collection(db, "orders");
+      const docRef = await addDoc(ordersRef, orderData);
+      
+      console.log("Order saved with ID:", docRef.id);
+
+      //clear cart and show success
+      setCartItems([]);
+      setShowCheckout(false);
+      setShowThankYou(true);
+      setShippingInfo({
+        firstName: "",
+        lastName: "",
+        address: "",
+        zipCode: "",
+        city: "",
+        state: "",
+      });
+      setPaymentInfo({
+        cardNumber: "",
+        expiration: "",
+        cvc: "",
+      });
+      setAcceptedTerms(false);
+
+    } catch (error) {
+      console.error("Error saving order:", error);
+      alert("There was an error processing your order. Please try again.");
+    }
   };
 
   const handleBackToShopping = () => {
