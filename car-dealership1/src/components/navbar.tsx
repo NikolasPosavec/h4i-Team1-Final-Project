@@ -31,17 +31,17 @@ const Navbar = () => {
       <div className="flex justify-end space-x-2">
         {/**This is the button that takes you to the landing or login page */}
         <Link to="/">
-          <FaHome color="yellow" />
+          <FaHome color="yellow" size={30}/>
         </Link>
 
         {/**This is the button that takes you to the cart page */}
         <Link to="/cart">
-          <FaShoppingCart color="yellow" />
+          <FaShoppingCart color="yellow" size={30}/>
         </Link>
 
         {/**This is the button that takes you to the contact page */}
         <Link to="/contact">
-          <IoIosContacts color="yellow" />
+          <IoIosContacts color="yellow" size={30}/>
         </Link>
 
         {/**This is the button that logs you out */}
@@ -51,7 +51,7 @@ const Navbar = () => {
           className="text-yellow"
           type="button"
         >
-          <CiLogin color="black" />
+          <CiLogin color="black" size={30}/>
         </button>
 
         {/**This is the button that takes you to the search skeleton page 
