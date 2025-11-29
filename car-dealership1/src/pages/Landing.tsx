@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { collection, getDocs, query, limit } from "firebase/firestore";
 import { db } from "../firebase/config";
+import SearchBar from "../components/SearchBar";
 
 import shellfaxLogo from "../assets/images/shellfax-logo.png";
 import moneyIcon from "../assets/images/money-icon.png";
@@ -14,13 +15,6 @@ import starsIcon from "../assets/images/stars-icon.png";
 import userIcon from "../assets/images/user-icon.png";
 
 function LandingPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [carMake, setCarMake] = useState("");
-  const [carModel, setCarModel] = useState("");
-  const [priceRange, setPriceRange] = useState("");
-  const [year, setYear] = useState("");
   const [featuredCar, setFeaturedCar] = useState<any>(null);
   const [suggestedCars, setSuggestedCars] = useState<any[]>([]);
   const [carsLoading, setCarsLoading] = useState(true);
@@ -57,23 +51,6 @@ function LandingPage() {
       await signOut(auth);
     } catch (err) {
       console.error("Logout error:", err);
-    }
-  };
-
-  const processSearch = async () => {
-    if (!searchTerm.trim()) return;
-    setLoading(true);
-    try {
-      const response = await fetch(`APILINK=${searchTerm}`, {
-        headers: { Accept: "application/json" },
-      });
-      const data = await response.json();
-      setResults(data.results);
-    } catch (error) {
-      console.error("Something went wrong -", error);
-      setResults([]);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -206,59 +183,8 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Search Section */}
-      <section className="bg-red-600 py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-black mb-8">
-            FIND THE CAR FOR YOU TODAY!
-          </h2>
-
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
-            {[
-              { value: carMake, set: setCarMake, placeholder: "CAR MAKE" },
-              { value: carModel, set: setCarModel, placeholder: "CAR MODEL" },
-              { value: priceRange, set: setPriceRange, placeholder: "PRICE" },
-              { value: year, set: setYear, placeholder: "YEAR" },
-            ].map((input, index) => (
-              <div key={index} className="relative">
-                <input
-                  type="text"
-                  value={input.value}
-                  onChange={(e) => input.set(e.target.value)}
-                  placeholder={input.placeholder}
-                  className="bg-yellow-400 text-gray-900 placeholder-gray-700 px-6 py-3 pr-12 rounded-full w-48 font-medium uppercase"
-                />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xl">
-                  🔍
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-md">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && processSearch()}
-                placeholder="SEARCH FOR YOUR DREAM CAR"
-                className="bg-yellow-300 text-gray-900 placeholder-gray-700 px-6 py-3 rounded-full w-full font-medium uppercase"
-              />
-              <button
-                onClick={processSearch}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-400 p-2 rounded-full hover:bg-yellow-500"
-              >
-                <span className="text-xl">🔍</span>
-              </button>
-            </div>
-          </div>
-
-          {loading && (
-            <p className="text-center text-white mt-4">Searching...</p>
-          )}
-        </div>
-      </section>
+      {/* Search Bar */}
+      <SearchBar />
 
       {/* Featured & Suggested Cars Section */}
       <section className="bg-yellow-400 py-12">

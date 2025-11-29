@@ -72,60 +72,61 @@ const SearchBar = () => {
     }
   };
 
+  const searchEntryData = [
+    { value: make, set: setMake, placeholder: "CAR MAKE" },
+    { value: model, set: setModel, placeholder: "CAR MODEL" },
+    { value: price, set: setPrice, placeholder: "PRICE" },
+    { value: year, set: setYear, placeholder: "YEAR" },
+  ];
+
   return (
-    <div className="flex flex-col items-center min-w-full my-7 bg-red-500">
-      <h1 className="text-2xl font-bold mt-4">Find The Car For You Today!</h1>
-      <div className="flex flex-row items-center justify-around min-w-full">
-        <input
-          type="text"
-          placeholder="CAR MAKE"
-          className="w-2xs p-2 my-6 rounded-full bg-yellow-500 focus:outline-none focus:ring-1 focus:ring-black"
-          id="make"
-          name="make"
-          value={make}
-          onChange={(e) => setMake(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="CAR MODEL"
-          className="w-2xs p-2 my-6 rounded-full bg-yellow-500 focus:outline-none focus:ring-1 focus:ring-black"
-          id="model"
-          name="model"
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="PRICE"
-          className="w-2xs p-2 my-6 rounded-full bg-yellow-500 focus:outline-none focus:ring-1 focus:ring-black"
-          id="price"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="YEAR"
-          className="w-2xs p-2 my-6 rounded-full bg-yellow-500 focus:outline-none focus:ring-1 focus:ring-black"
-          id="year"
-          name="year"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-        />
-      </div>
-      <button
-        onClick={handleSearch}
-        disabled={isSearching}
-        className="w-xl p-2 my-6 rounded-2xl bg-yellow-500 focus:outline-none focus:ring-1 focus:ring-black text-black disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSearching ? "SEARCHING..." : "SEARCH FOR YOUR DREAM CAR"}
-      </button>
-      {searchResults.length > 0 && (
-        <div className="mt-4 text-white">
-          <p>Found {searchResults.length} car(s)</p>
+    <>
+      <section className="bg-red-600 py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-black mb-8">
+            FIND THE CAR FOR YOU TODAY!
+          </h2>
+
+          <div className="flex flex-wrap justify-center gap-4 mb-6">
+            {searchEntryData.map((input, index) => (
+              <div key={index} className="relative">
+                <input
+                  type="text"
+                  value={input.value}
+                  onChange={(e) => input.set(e.target.value)}
+                  placeholder={input.placeholder}
+                  className="bg-yellow-400 text-gray-900 placeholder-gray-700 px-6 py-3 pr-12 rounded-full w-48 font-medium uppercase"
+                />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xl">
+                  🔍
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center">
+            <div className="relative w-full max-w-md">
+              <button
+                onClick={handleSearch}
+                disabled={isSearching}
+                className="w-full p-2 my-6 rounded-2xl bg-yellow-300 focus:outline-none focus:ring-1 focus:ring-black text-black disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSearching ? "SEARCHING..." : "SEARCH FOR YOUR DREAM CAR"}
+              </button>
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xl">
+                🔍
+              </span>
+            </div>
+          </div>
+
+          {searchResults.length > 0 && (
+            <div className="mt-4 text-white">
+              <p>Found {searchResults.length} car(s)</p>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </section>
+    </>
   );
 };
 
