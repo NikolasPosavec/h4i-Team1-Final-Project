@@ -118,7 +118,10 @@ function Customer() {
 
             <div>
                 <label>Email:</label>
-                <input type="email" value={user.email || ""} disabled />
+                <input 
+                type="email" 
+                value={user.email || ""} 
+                disabled />
             </div>
 
             <div>
