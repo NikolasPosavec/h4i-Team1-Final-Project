@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useState, useEffect } from "react";
@@ -7,8 +7,9 @@ import type { Car } from "../types";
 
 export default function CarDetails() {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [car, setCar] = useState<Car | null>(null);
+  const [cartItems, setCartItems] = useState<Car[]>([]);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -34,6 +35,43 @@ export default function CarDetails() {
 
     fetchCar();
   }, [id]);
+
+  //load cart from localStorage
+  useEffect(() => {
+    try {
+      const savedCart = localStorage.getItem("shellfax_cart");
+      if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+      }
+    } catch (error) {
+      console.error("Error loading cart:", error);
+    }
+  }, []);
+
+  const handleAddToCart = () => {
+    if (!car) return;
+
+    //check if cart already has 2 items
+    if (cartItems.length >= 2) {
+      alert("Cart is full! Maximum 2 vehicles allowed. Please remove an item first.");
+      return;
+    }
+
+    //check if car is already in cart
+    if (cartItems.some(item => item.id === car.id)) {
+      alert("This vehicle is already in your cart!");
+      return;
+    }
+
+    //add car to cart
+    const updatedCart = [...cartItems, car];
+    setCartItems(updatedCart);
+    localStorage.setItem("shellfax_cart", JSON.stringify(updatedCart));
+    
+    //show success message and redirect to cart
+    alert("Vehicle added to cart!");
+    navigate("/cart");
+  };
 
   return (
     <div className="flex flex-col h-screen">
@@ -113,7 +151,10 @@ export default function CarDetails() {
                       currency: "USD",
                     }).format(car.price)}
                   </p>
-                  <button className="bg-yellow-400 text-xl text-white px-4 py-4 rounded-md">
+                  <button 
+                    onClick={handleAddToCart}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-xl text-gray-900 font-bold px-6 py-4 rounded-md transition-colors"
+                  >
                     Add to Cart
                   </button>
                 </div>
