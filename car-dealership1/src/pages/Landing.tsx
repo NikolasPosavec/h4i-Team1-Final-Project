@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { collection, getDocs, query, limit } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-import shellfaxLogo from '../assets/images/shellfax-logo.png';
-import moneyIcon from '../assets/images/money-icon.png';
-import trophyIcon from '../assets/images/trophy-icon.png';
-import peopleIcon from '../assets/images/people-icon.png';
-import checkmarkIcon from '../assets/images/checkmark-icon.png';
-import starsIcon from '../assets/images/stars-icon.png';
-import userIcon from '../assets/images/user-icon.png';
+import shellfaxLogo from "../assets/images/shellfax-logo.png";
+import moneyIcon from "../assets/images/money-icon.png";
+import trophyIcon from "../assets/images/trophy-icon.png";
+import peopleIcon from "../assets/images/people-icon.png";
+import checkmarkIcon from "../assets/images/checkmark-icon.png";
+import starsIcon from "../assets/images/stars-icon.png";
+import userIcon from "../assets/images/user-icon.png";
 
 function LandingPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [carMake, setCarMake] = useState('');
-  const [carModel, setCarModel] = useState('');
-  const [priceRange, setPriceRange] = useState('');
-  const [year, setYear] = useState('');
+  const [carMake, setCarMake] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [year, setYear] = useState("");
   const [featuredCar, setFeaturedCar] = useState<any>(null);
   const [suggestedCars, setSuggestedCars] = useState<any[]>([]);
   const [carsLoading, setCarsLoading] = useState(true);
@@ -29,10 +29,10 @@ function LandingPage() {
     const fetchCars = async () => {
       try {
         setCarsLoading(true);
-        const carsCollection = collection(db, 'cars');
-        const carsQuery = query(carsCollection, limit(4)); 
+        const carsCollection = collection(db, "cars");
+        const carsQuery = query(carsCollection, limit(4));
         const querySnapshot = await getDocs(carsQuery);
-        
+
         const cars: any[] = [];
         querySnapshot.forEach((doc) => {
           cars.push({ id: doc.id, ...doc.data() });
@@ -64,10 +64,9 @@ function LandingPage() {
     if (!searchTerm.trim()) return;
     setLoading(true);
     try {
-      const response = await fetch(
-        `APILINK=${searchTerm}`,
-        { headers: { 'Accept': 'application/json' } }
-      );
+      const response = await fetch(`APILINK=${searchTerm}`, {
+        headers: { Accept: "application/json" },
+      });
       const data = await response.json();
       setResults(data.results);
     } catch (error) {
@@ -80,20 +79,20 @@ function LandingPage() {
 
   const reviews = [
     {
-      name: 'Anonymous Review',
+      name: "Anonymous Review",
       text: "I've bought cars from other places before, but this dealership truly stands out. The staff was knowledgeable, patient, and helped me make the best decision. I left with my dream car and complete confidence in my purchase.",
-      rating: 5
+      rating: 5,
     },
     {
-      name: 'Jordan Mitchell',
+      name: "Jordan Mitchell",
       text: "From pricing to service, everything was transparent and smooth. They walked me through every step and made sure I understood all my options. Easily the most stress-free car-buying experience I've ever had.",
-      rating: 5
+      rating: 5,
     },
     {
-      name: 'Ariana Collins',
+      name: "Ariana Collins",
       text: "Exceptional service from start to finish. The team listened to what I needed, found the perfect vehicle, and handled everything quickly. Highly recommend them to anyone looking for quality and reliability.",
-      rating: 5
-    }
+      rating: 5,
+    },
   ];
 
   return (
@@ -104,9 +103,9 @@ function LandingPage() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <img 
-                src={shellfaxLogo} 
-                alt="Shellfax Logo" 
+              <img
+                src={shellfaxLogo}
+                alt="Shellfax Logo"
                 className="h-16 w-auto"
               />
             </div>
@@ -164,13 +163,12 @@ function LandingPage() {
             </div>
           ) : featuredCar ? (
             <div className="grid lg:grid-cols-2 gap-8 items-stretch">
-              
               {/* Featured Car Image */}
               <div className="border-4 border-gray-900 p-8 bg-gray-100 h-full flex items-center justify-center">
-                <img 
+                <img
                   src={
-                    featuredCar.image_url || 
-                    'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop'
+                    featuredCar.image_url ||
+                    "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop"
                   }
                   alt={`${featuredCar.year} ${featuredCar.make} ${featuredCar.model}`}
                   className="w-full h-auto rounded-lg shadow-md"
@@ -184,22 +182,25 @@ function LandingPage() {
                 </h2>
 
                 <p className="text-gray-900 mb-6 leading-relaxed text-3xl">
-                  This {featuredCar.year} {featuredCar.make} {featuredCar.model} offers a smooth and efficient 
-                  driving experience with its {featuredCar.trim || 'well-equipped design'}. With only{" "}
-                  {featuredCar.mileage?.toLocaleString()} miles, it’s been lightly driven and well-maintained, 
-                  making it an excellent choice for commuters or first-time buyers. Finished in {featuredCar.color}, 
-                  it delivers reliability, comfort, and great fuel economy without breaking the bank.
+                  This {featuredCar.year} {featuredCar.make} {featuredCar.model}{" "}
+                  offers a smooth and efficient driving experience with its{" "}
+                  {featuredCar.trim || "well-equipped design"}. With only{" "}
+                  {featuredCar.mileage?.toLocaleString()} miles, it’s been
+                  lightly driven and well-maintained, making it an excellent
+                  choice for commuters or first-time buyers. Finished in{" "}
+                  {featuredCar.color}, it delivers reliability, comfort, and
+                  great fuel economy without breaking the bank.
                 </p>
                 <p className="text-5xl font-bold text-red-600 mt-auto">
                   ${featuredCar.price?.toLocaleString()}
                 </p>
-                
               </div>
-
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-2xl text-gray-600">No featured car available</p>
+              <p className="text-2xl text-gray-600">
+                No featured car available
+              </p>
             </div>
           )}
         </div>
@@ -217,7 +218,7 @@ function LandingPage() {
               { value: carMake, set: setCarMake, placeholder: "CAR MAKE" },
               { value: carModel, set: setCarModel, placeholder: "CAR MODEL" },
               { value: priceRange, set: setPriceRange, placeholder: "PRICE" },
-              { value: year, set: setYear, placeholder: "YEAR" }
+              { value: year, set: setYear, placeholder: "YEAR" },
             ].map((input, index) => (
               <div key={index} className="relative">
                 <input
@@ -227,7 +228,9 @@ function LandingPage() {
                   placeholder={input.placeholder}
                   className="bg-yellow-400 text-gray-900 placeholder-gray-700 px-6 py-3 pr-12 rounded-full w-48 font-medium uppercase"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xl">🔍</span>
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xl">
+                  🔍
+                </span>
               </div>
             ))}
           </div>
@@ -238,11 +241,11 @@ function LandingPage() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && processSearch()}
+                onKeyPress={(e) => e.key === "Enter" && processSearch()}
                 placeholder="SEARCH FOR YOUR DREAM CAR"
                 className="bg-yellow-300 text-gray-900 placeholder-gray-700 px-6 py-3 rounded-full w-full font-medium uppercase"
               />
-              <button 
+              <button
                 onClick={processSearch}
                 className="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-400 p-2 rounded-full hover:bg-yellow-500"
               >
@@ -271,14 +274,20 @@ function LandingPage() {
           ) : suggestedCars.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {suggestedCars.map((car) => (
-                <div key={car.id} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div
+                  key={car.id}
+                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                >
                   <div className="p-4 bg-gray-50">
                     <h3 className="text-lg font-bold text-center">
                       {car.year} {car.make} {car.model}
                     </h3>
                   </div>
-                  <img 
-                    src={car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop'} 
+                  <img
+                    src={
+                      car.image_url ||
+                      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop"
+                    }
                     alt={`${car.year} ${car.make} ${car.model}`}
                     className="w-full h-64 object-cover"
                   />
@@ -287,7 +296,8 @@ function LandingPage() {
                       <strong>Price:</strong> ${car.price?.toLocaleString()}
                     </p>
                     <p className="text-gray-700 mb-2">
-                      <strong>Mileage:</strong> {car.mileage?.toLocaleString()} miles
+                      <strong>Mileage:</strong> {car.mileage?.toLocaleString()}{" "}
+                      miles
                     </p>
                     <p className="text-gray-700">
                       <strong>Color:</strong> {car.color}
@@ -298,7 +308,9 @@ function LandingPage() {
             </div>
           ) : (
             <div className="text-center py-10">
-              <p className="text-2xl text-gray-800">No suggested cars available</p>
+              <p className="text-2xl text-gray-800">
+                No suggested cars available
+              </p>
             </div>
           )}
         </div>
@@ -314,31 +326,37 @@ function LandingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               {
-                title: 'AWARD WINNING',
-                text: 'Recognized for excellence year after year — our award-winning dealership sets the standard for quality and customer satisfaction.',
-                icon: trophyIcon
+                title: "AWARD WINNING",
+                text: "Recognized for excellence year after year — our award-winning dealership sets the standard for quality and customer satisfaction.",
+                icon: trophyIcon,
               },
               {
-                title: 'MOST RELIABLE',
-                text: 'Count on every step of the way. From honest guidance to dependable vehicles, reliability is at the heart of everything we do.',
-                icon: checkmarkIcon
+                title: "MOST RELIABLE",
+                text: "Count on every step of the way. From honest guidance to dependable vehicles, reliability is at the heart of everything we do.",
+                icon: checkmarkIcon,
               },
               {
-                title: 'FLEXIBLE PRICING',
-                text: 'Transparent, competitive pricing with no hidden fees — giving you the best value without the stress.',
-                icon: moneyIcon
+                title: "FLEXIBLE PRICING",
+                text: "Transparent, competitive pricing with no hidden fees — giving you the best value without the stress.",
+                icon: moneyIcon,
               },
               {
-                title: 'CONSISTENT SERVICE',
-                text: 'Premium customer service from trained professionals who go the extra mile to keep you moving forward on the road with confidence.',
-                icon: peopleIcon
-              }
+                title: "CONSISTENT SERVICE",
+                text: "Premium customer service from trained professionals who go the extra mile to keep you moving forward on the road with confidence.",
+                icon: peopleIcon,
+              },
             ].map((item, index) => (
               <div key={index} className="bg-yellow-400 p-6 rounded-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {item.title}
+                </h3>
                 <p className="text-gray-800 text-sm mb-4">{item.text}</p>
                 <div className="flex justify-center mt-4">
-                  <img src={item.icon} alt={item.title} className="w-24 h-24 object-contain" />
+                  <img
+                    src={item.icon}
+                    alt={item.title}
+                    className="w-24 h-24 object-contain"
+                  />
                 </div>
               </div>
             ))}
@@ -358,7 +376,11 @@ function LandingPage() {
                   <img src={starsIcon} alt="5 stars" className="h-28 w-auto" />
                 </div>
                 <div className="flex justify-center mt-4">
-                  <img src={userIcon} alt={review.name} className="w-16 h-16 rounded-full" />
+                  <img
+                    src={userIcon}
+                    alt={review.name}
+                    className="w-16 h-16 rounded-full"
+                  />
                 </div>
               </div>
             ))}
@@ -370,9 +392,9 @@ function LandingPage() {
       <footer className="bg-white py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <img 
-              src={shellfaxLogo} 
-              alt="Shellfax Logo" 
+            <img
+              src={shellfaxLogo}
+              alt="Shellfax Logo"
               className="h-16 w-auto"
             />
           </div>

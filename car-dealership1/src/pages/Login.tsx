@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { auth } from "../firebase/config";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -29,6 +29,7 @@ function Login() {
 
   return (
     <div>
+      
       <h1>Login</h1>
       <input
         type="email"
@@ -44,9 +45,6 @@ function Login() {
       />
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleSignUp}>Sign Up</button>
-      <div>
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </div>
       {error && <div>{error}</div>}
     </div>
   );

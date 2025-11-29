@@ -1,0 +1,16 @@
+{
+  "name": "populate-db",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Script to populate Firestore with car data from CarsXE API",
+  "main": "populate.js",
+  "scripts": {
+    "populate": "node populate.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "dotenv": "^16.4.5",
+    "carsxe-api": "^1.0.0"
+  }
+}
+
