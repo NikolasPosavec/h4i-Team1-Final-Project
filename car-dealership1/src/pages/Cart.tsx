@@ -1,10 +1,12 @@
 import Navbar from "../components/navbar";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import type { Car } from "../types";
 
 function Cart() {
+  const location = useLocation();
   const [cartItems, setCartItems] = useState<Car[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [shippingInfo, setShippingInfo] = useState({
@@ -22,18 +24,31 @@ function Cart() {
   });
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-  //load cart from localStorage
+  //load cart from localStorage whenever the route is visited
   useEffect(() => {
-    const savedCart = localStorage.getItem("shellfax_cart");
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
+    setIsLoaded(false); // Reset flag before loading
+    try {
+      const savedCart = localStorage.getItem("shellfax_cart");
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart);
+        setCartItems(parsedCart);
+      } else {
+        setCartItems([]);
+      }
+    } catch (error) {
+      console.error("Error loading cart:", error);
+      setCartItems([]);
+    } finally {
+      setIsLoaded(true); // Enable saving after load completes
     }
-  }, []);
+  }, [location.pathname]);
 
-  //save cart to localStorage whenever it changes
+  //save cart to localStorage whenever it changes (but only after initial load)
   useEffect(() => {
-    localStorage.setItem("shellfax_cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (isLoaded) {
+      localStorage.setItem("shellfax_cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems, isLoaded]);
 
   const removeFromCart = (carId: string) => {
     setCartItems(cartItems.filter((item) => item.id !== carId));

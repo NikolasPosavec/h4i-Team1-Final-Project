@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 import ShellFaxLogo from "../assets/ShellFaxLogo.jpeg";
 import { signInWithEmailAndPassword } from "firebase/auth";
