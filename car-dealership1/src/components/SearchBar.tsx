@@ -1,53 +1,35 @@
 import { useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
-
-interface Car {
-  id: string;
-  make: string;
-  model: string;
-  year: number;
-  trim: string;
-  color: string;
-  price: number;
-  mileage: number;
-  seats: number;
-  drivetrain: string;
-  image_url: string;
-}
+import type { Car } from "../types";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
   const [model, setModel] = useState("");
   const [make, setMake] = useState("");
-  const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     setIsSearching(true);
-    // Clear previous results immediately
-    setSearchResults([]);
+    let results: Car[] = [];
+
+    // Parse filter values
+    const makeLower = make.trim().toLowerCase();
+    const makeFilter = make
+      ? makeLower.charAt(0).toUpperCase() + makeLower.slice(1)
+      : "";
+    const modelLower = model.trim().toLowerCase();
+    const modelFilter = model
+      ? modelLower.charAt(0).toUpperCase() + modelLower.slice(1)
+      : "";
+    const yearNum = parseInt(year.trim());
+    const priceNum = parseFloat(price.trim());
 
     try {
       const carsRef = collection(db, "cars");
-
-      setYear("");
-      setPrice("");
-      setModel("");
-      setMake("");
-
-      // Parse filter values
-      const makeLower = make.trim().toLowerCase();
-      const makeFilter = make
-        ? makeLower.charAt(0).toUpperCase() + makeLower.slice(1)
-        : null;
-      const modelLower = model.trim().toLowerCase();
-      const modelFilter = model
-        ? modelLower.charAt(0).toUpperCase() + modelLower.slice(1)
-        : null;
-      const yearNum = parseInt(year.trim());
-      const priceNum = parseFloat(price.trim());
 
       let q: any = carsRef;
       if (makeFilter) q = query(q, where("make", "==", makeFilter));
@@ -57,18 +39,21 @@ const SearchBar = () => {
 
       const querySnapshot = await getDocs(q);
 
-      const results = querySnapshot.docs.map((doc) => ({
+      results = querySnapshot.docs.map((doc) => ({
         ...(doc.data() as Car),
         id: doc.id,
       }));
-
-      setSearchResults(results);
-      console.log(results);
     } catch (error) {
       console.error("Error searching cars:", error);
-      setSearchResults([]);
+      results = [];
     } finally {
       setIsSearching(false);
+      navigate("/searchresults", {
+        state: {
+          query: [makeFilter, modelFilter, priceNum, yearNum],
+          results: results,
+        },
+      });
     }
   };
 
@@ -118,12 +103,6 @@ const SearchBar = () => {
               </span>
             </div>
           </div>
-
-          {searchResults.length > 0 && (
-            <div className="mt-4 text-white">
-              <p>Found {searchResults.length} car(s)</p>
-            </div>
-          )}
         </div>
       </section>
     </>

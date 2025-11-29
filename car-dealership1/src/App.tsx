@@ -8,7 +8,7 @@ import SignUp from "./pages/SignUp";
 import Cart from "./pages/Cart";
 import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
-
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -34,6 +34,10 @@ function App() {
         <Route
           path="/"
           element={user ? <Landing /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/searchresults"
+          element={user ? <SearchResults /> : <Navigate to="/login" replace />}
         />
         <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact />} />
