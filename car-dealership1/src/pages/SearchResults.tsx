@@ -10,14 +10,16 @@ type SearchResultsLocationState = {
 
 const SearchResults = () => {
   const location = useLocation();
-  let { query, results } = location.state as SearchResultsLocationState;
 
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "decimal",
-    maximumFractionDigits: 0,
-  }).format(query[2]);
+  const { query, results } = location.state as SearchResultsLocationState;
 
-  // Join the truthy values of the query array into a string with spaces
+  const formattedPrice = query[2]
+    ? new Intl.NumberFormat("en-US", {
+        style: "decimal",
+        maximumFractionDigits: 0,
+      }).format(query[2])
+    : "";
+
   const queryString = `${query[3] ? query[3] : ""} ${query[0]} ${query[1]} ${
     formattedPrice ? `$${formattedPrice}` : ""
   }`;
