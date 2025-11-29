@@ -10,10 +10,17 @@ type SearchResultsLocationState = {
 
 const SearchResults = () => {
   const location = useLocation();
-  const { query, results } = location.state as SearchResultsLocationState;
+  let { query, results } = location.state as SearchResultsLocationState;
+
+  const formattedPrice = new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    maximumFractionDigits: 0,
+  }).format(query[2]);
 
   // Join the truthy values of the query array into a string with spaces
-  const queryString = query.filter(Boolean).join(" ");
+  const queryString = `${query[3] ? query[3] : ""} ${query[0]} ${query[1]} ${
+    formattedPrice ? `$${formattedPrice}` : ""
+  }`;
 
   return (
     <>
@@ -22,7 +29,7 @@ const SearchResults = () => {
         <h1 className="text-3xl font-bold my-8">
           Search Results for: {queryString}
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 mb-8">
           {results.map((result) => (
             <CarCard key={result.id} car={result} />
           ))}
