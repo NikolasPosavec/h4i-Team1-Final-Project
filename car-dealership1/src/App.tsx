@@ -15,6 +15,7 @@ import Cart from "./pages/Cart";
 import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
 import SearchResults from "./pages/SearchResults";
+import Customer from "./pages/Customer";
 import CarDetails from "./pages/CarDetails";
 import Vendor from "./pages/Vendor";
 
@@ -122,6 +123,13 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/customer"
+          element={<Customer />}
+          // element= {user ? <Customer/>: <Navigate to="/login" replace/>}
+        />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="/VendorProduct"
           element={
