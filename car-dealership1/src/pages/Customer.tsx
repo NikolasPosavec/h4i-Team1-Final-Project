@@ -83,7 +83,7 @@ function Customer() {
 
   return (
     <>
-      <div>
+      <div className="min-h-screen bg-white">
         <Navbar />
         <h1>Welcome Back</h1>
         <p> Email: {user.email}</p>

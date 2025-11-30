@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaHome } from "react-icons/fa";
 import { IoIosContacts } from "react-icons/io";
+import { BsPersonCircle } from "react-icons/bs";
 import { CiLogin } from "react-icons/ci";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
@@ -45,6 +46,10 @@ const Navbar = () => {
             <IoIosContacts color="yellow" size={30} />
           </Link>
 
+          <Link to="/customer" aria-label = "Profile"> 
+            <BsPersonCircle color = "yellow" size={30} />
+          </Link>
+          
           <button
             onClick={handleLogout}
             aria-label="Logout"
