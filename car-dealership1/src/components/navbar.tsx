@@ -4,8 +4,8 @@ import { IoIosContacts } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
-/**import { CiSearch } from "react-icons/ci";*/
 import { useNavigate } from "react-router-dom";
+import shellfaxLogo from "../assets/images/shellfax-logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,46 +20,40 @@ const Navbar = () => {
   };
 
   return (
-    /**Made the navigation color of the navbar is red with white text */
     <nav className="bg-red-500 p-4">
-      <div className="text-center">
-        <h1 className="font-extrabold text-4xl">SHELLFAX</h1>
-        <h2 className="font-bold text-2xl">Car Dealership</h2>
-      </div>
-
-      {/**Pushed all the items to the end and lined up as a row. Added spacing between each icon*/}
-      <div className="flex justify-end space-x-2">
-        {/**This is the button that takes you to the landing or login page */}
-        <Link to="/">
-          <FaHome color="yellow" />
+      <div className="flex items-center justify-between">
+        {/* Logo on the left */}
+        <Link to="/" className="flex items-center">
+          <img
+            src={shellfaxLogo}
+            alt="Shellfax Logo"
+            className="h-16 w-auto"
+          />
         </Link>
 
-        {/**This is the button that takes you to the cart page */}
-        <Link to="/cart">
-          <FaShoppingCart color="yellow" />
-        </Link>
+        {/* Navigation icons on the right */}
+        <div className="flex items-center space-x-4">
+          <Link to="/" aria-label="Home">
+            <FaHome color="yellow" size={30} />
+          </Link>
 
-        {/**This is the button that takes you to the contact page */}
-        <Link to="/contact">
-          <IoIosContacts color="yellow" />
-        </Link>
+          <Link to="/cart" aria-label="Cart">
+            <FaShoppingCart color="yellow" size={30} />
+          </Link>
 
-        {/**This is the button that logs you out */}
-        <button
-          onClick={handleLogout}
-          aria-label="Logout"
-          className="text-yellow"
-          type="button"
-        >
-          <CiLogin color="black" />
-        </button>
+          <Link to="/contact" aria-label="Contact">
+            <IoIosContacts color="yellow" size={30} />
+          </Link>
 
-        {/**This is the button that takes you to the search skeleton page 
-                 * NOTE: Search page skeleton is not yet implemented
-                <Link to = "/search"> 
-                    <CiSearch color="yellow"/> 
-                </Link>
-                */}
+          <button
+            onClick={handleLogout}
+            aria-label="Logout"
+            className="text-yellow"
+            type="button"
+          >
+            <CiLogin color="black" size={30} />
+          </button>
+        </div>
       </div>
     </nav>
   );

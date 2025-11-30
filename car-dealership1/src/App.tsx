@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { auth } from "./firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
@@ -10,15 +16,47 @@ import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
 import SearchResults from "./pages/SearchResults";
 import Customer from "./pages/Customer";
+import CarDetails from "./pages/CarDetails";
 
-function App() {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      setLoading(false);
     });
     return unsub;
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+}
+
+function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+    return unsub;
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -31,14 +69,45 @@ function App() {
           path="/signup"
           element={user ? <Navigate to="/" replace /> : <SignUp />}
         />
-
         <Route
           path="/"
-          element={user ? <Landing /> : <Navigate to="/login" replace />}
+          element={
+            <ProtectedRoute>
+              <Landing />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/searchresults"
-          element={user ? <SearchResults /> : <Navigate to="/login" replace />}
+          element={
+            <ProtectedRoute>
+              <SearchResults />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/car/:id"
+          element={
+            <ProtectedRoute>
+              <CarDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <Contact />
+            </ProtectedRoute>
+          }
         />
         <Route 
           path = "/customer" 

@@ -28,6 +28,13 @@ const SearchBar = () => {
     const yearNum = parseInt(year.trim());
     const priceNum = parseFloat(price.trim());
 
+    if (!makeFilter && !modelFilter && !yearNum && !priceNum) {
+      alert("Please enter at least one search criteria");
+      setIsSearching(false);
+      navigate("/");
+      return;
+    }
+
     try {
       const carsRef = collection(db, "cars");
 
