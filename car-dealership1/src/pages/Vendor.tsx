@@ -89,6 +89,7 @@ const [newCar, setNewCar] = useState<NewCar>({
 
   {/**For editing existing cars in the inventory*/}
   const handleEditCar = (car: Car) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingCar(car);
   };
 
