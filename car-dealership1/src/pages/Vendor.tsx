@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase/config"; 
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { db } from "../firebase/config";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import type { Car } from "../types";
 import Navbar from "../components/navbar";
 import CarCard from "../components/CarCard";
@@ -8,36 +15,36 @@ import CarCard from "../components/CarCard";
 const Vendor = () => {
   const [cars, setCars] = useState<Car[]>([]);
   type NewCar = {
-  make: string;
-  model: string;
-  year: number;
-  price: number;
-  mileage: number;
-  trim: string;
-  image_url: string;
-  color: string;
-  seats: number;
-  drivetrain: string;
-};
+    make: string;
+    model: string;
+    year: number | null;
+    price: number | null;
+    mileage: number | null;
+    trim: string;
+    image_url: string;
+    color: string;
+    seats: number | null;
+    drivetrain: string;
+  };
 
-const [newCar, setNewCar] = useState<NewCar>({
-  make: "",
-  model: "",
-  year: 2000,
-  price: 0,
-  mileage: 0,
-  trim: "",
-  image_url: "",
-  color: "",
-  seats: 0,
-  drivetrain: "",
-});
+  const [newCar, setNewCar] = useState<NewCar>({
+    make: "",
+    model: "",
+    year: null,
+    price: null,
+    mileage: null,
+    trim: "",
+    image_url: "",
+    color: "",
+    seats: null,
+    drivetrain: "",
+  });
   const [editingCar, setEditingCar] = useState<Car | null>(null);
 
   const fetchCars = async () => {
     try {
       const snapshot = await getDocs(collection(db, "cars"));
-      const carsData = snapshot.docs.map(doc => ({
+      const carsData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as Car[];
@@ -51,7 +58,9 @@ const [newCar, setNewCar] = useState<NewCar>({
     fetchCars();
   }, []);
 
-  {/**adds a new car to the firebase inventory */}
+  {
+    /**adds a new car to the firebase inventory */
+  }
   const handleAddCar = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -65,34 +74,34 @@ const [newCar, setNewCar] = useState<NewCar>({
         price: newCar.price,
         seats: newCar.seats,
         trim: newCar.trim,
-        year: newCar.year
+        year: newCar.year,
       });
       setNewCar({
         make: "",
         model: "",
-        year: 2000,       
+        year: 2000,
         price: 0,
         mileage: 0,
-        trim: "",           
-        image_url: "",      
+        trim: "",
+        image_url: "",
         color: "",
         seats: 0,
         drivetrain: "",
       });
       fetchCars();
       alert("Car added successfully");
-
     } catch (err) {
       alert("Error (adding)" + err);
     }
   };
 
-  {/**For editing existing cars in the inventory*/}
+  {
+    /**For editing existing cars in the inventory*/
+  }
   const handleEditCar = (car: Car) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingCar(car);
   };
-
 
   const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,7 +118,7 @@ const [newCar, setNewCar] = useState<NewCar>({
         price: editingCar.price,
         seats: editingCar.seats,
         trim: editingCar.trim,
-        year: editingCar.year
+        year: editingCar.year,
       });
       setEditingCar(null);
       fetchCars();
@@ -119,9 +128,15 @@ const [newCar, setNewCar] = useState<NewCar>({
     }
   };
 
-  {/**Deletes a car from the inventory */}
+  {
+    /**Deletes a car from the inventory */
+  }
   const handleDeleteCar = async (id: string) => {
-    if (window.confirm("Are you sure you want to commit to deleting this car? (This action cannot be undone.)")) {
+    if (
+      window.confirm(
+        "Are you sure you want to commit to deleting this car? (This action cannot be undone.)"
+      )
+    ) {
       try {
         await deleteDoc(doc(db, "cars", id));
         fetchCars();
@@ -134,18 +149,21 @@ const [newCar, setNewCar] = useState<NewCar>({
 
   return (
     <div>
-      {/**nav bar with all the default links and buttons */ }
+      {/**nav bar with all the default links and buttons */}
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8">Vendor Inventory Dashboard</h1>
 
         {/* Add/Edit Car Form */}
-        <form onSubmit={editingCar ? handleSaveEdit : handleAddCar} className="mb-8 space-y-4">
+        <form
+          onSubmit={editingCar ? handleSaveEdit : handleAddCar}
+          className="mb-8 space-y-4"
+        >
           <input
             type="text"
             placeholder="Make"
             value={editingCar ? editingCar.make : newCar.make}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, make: e.target.value })
                 : setNewCar({ ...newCar, make: e.target.value })
@@ -156,7 +174,7 @@ const [newCar, setNewCar] = useState<NewCar>({
             type="text"
             placeholder="Model"
             value={editingCar ? editingCar.model : newCar.model}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, model: e.target.value })
                 : setNewCar({ ...newCar, model: e.target.value })
@@ -166,53 +184,61 @@ const [newCar, setNewCar] = useState<NewCar>({
           <input
             type="number"
             placeholder="Year"
-            value={editingCar ? editingCar.year : newCar.year}
-            onChange={e =>
+            value={editingCar ? editingCar.year : newCar.year ?? ""}
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, year: Number(e.target.value) })
-                : setNewCar({ ...newCar, year: Number(e.target.value) })
+                : setNewCar({
+                    ...newCar,
+                    year: e.target.value === "" ? null : Number(e.target.value),
+                  })
             }
             className="border p-2 w-full"
           />
-
 
           <input
             type="number"
             placeholder="Price"
-            value={editingCar ? editingCar.price : newCar.price}
-            onChange={e =>
+            value={editingCar ? editingCar.price : newCar.price ?? ""}
+            onChange={(e) =>
               editingCar
-                ? setEditingCar({ ...editingCar, price: Number(e.target.value) })
-                : setNewCar({ ...newCar, price: Number(e.target.value) })
+                ? setEditingCar({
+                    ...editingCar,
+                    price: Number(e.target.value),
+                  })
+                : setNewCar({
+                    ...newCar,
+                    price:
+                      e.target.value === "" ? null : Number(e.target.value),
+                  })
             }
-
-        
             className="border p-2 w-full"
           />
-
-
-
 
           <input
             type="number"
             placeholder="Mileage"
-            value={editingCar ? editingCar.mileage : newCar.mileage}
-            onChange={e =>
+            value={editingCar ? editingCar.mileage : newCar.mileage ?? ""}
+            onChange={(e) =>
               editingCar
-                ? setEditingCar({ ...editingCar, mileage: Number(e.target.value) })
-                : setNewCar({ ...newCar, mileage: Number(e.target.value) })
+                ? setEditingCar({
+                    ...editingCar,
+                    mileage: Number(e.target.value),
+                  })
+                : setNewCar({
+                    ...newCar,
+                    mileage:
+                      e.target.value === "" ? null : Number(e.target.value),
+                  })
             }
             className="border p-2 w-full"
           />
-
-
-
 
           <input
             type="text"
             placeholder="Trim"
             value={editingCar ? editingCar.trim : newCar.trim}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, trim: e.target.value })
                 : setNewCar({ ...newCar, trim: e.target.value })
@@ -220,14 +246,11 @@ const [newCar, setNewCar] = useState<NewCar>({
             className="border p-2 w-full"
           />
 
-
-
-
           <input
             type="text"
             placeholder="Image URL"
             value={editingCar ? editingCar.image_url : newCar.image_url}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, image_url: e.target.value })
                 : setNewCar({ ...newCar, image_url: e.target.value })
@@ -235,12 +258,11 @@ const [newCar, setNewCar] = useState<NewCar>({
             className="border p-2 w-full"
           />
 
-
           <input
             type="text"
             placeholder="Color"
             value={editingCar ? editingCar.color : newCar.color}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, color: e.target.value })
                 : setNewCar({ ...newCar, color: e.target.value })
@@ -248,13 +270,11 @@ const [newCar, setNewCar] = useState<NewCar>({
             className="border p-2 w-full"
           />
 
-
-
           <input
             type="text"
             placeholder="Drivetrain"
             value={editingCar ? editingCar.drivetrain : newCar.drivetrain}
-            onChange={e =>
+            onChange={(e) =>
               editingCar
                 ? setEditingCar({ ...editingCar, drivetrain: e.target.value })
                 : setNewCar({ ...newCar, drivetrain: e.target.value })
@@ -265,17 +285,21 @@ const [newCar, setNewCar] = useState<NewCar>({
           <input
             type="text"
             placeholder="Seats"
-            value={editingCar ? editingCar.seats : newCar.seats}
-            onChange={e =>
+            value={editingCar ? editingCar.seats : newCar.seats ?? ""}
+            onChange={(e) =>
               editingCar
-                ? setEditingCar({ ...editingCar, seats: Number(e.target.value) })
-                : setNewCar({ ...newCar, seats: Number(e.target.value) })
+                ? setEditingCar({
+                    ...editingCar,
+                    seats: Number(e.target.value),
+                  })
+                : setNewCar({
+                    ...newCar,
+                    seats:
+                      e.target.value === "" ? null : Number(e.target.value),
+                  })
             }
             className="border p-2 w-full"
           />
-
-
-
 
           <button
             type="submit"
@@ -292,15 +316,11 @@ const [newCar, setNewCar] = useState<NewCar>({
               Cancel
             </button>
           )}
-
-
-
-
         </form>
 
         {/* the car card per car in the inventory */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {cars.map(car => (
+          {cars.map((car) => (
             <div key={car.id} className="flex flex-col">
               <CarCard car={car} />
               <div className="mt-2 flex space-x-2">
