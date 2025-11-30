@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import ShellFaxLogo from '../assets/ShellFaxLogo.jpeg';
 import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 
 function SignUp() {
@@ -15,7 +16,24 @@ function SignUp() {
 
   const handleSignUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      {/**allows the user to create an account */}
+      const userInfo = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userInfo.user;
+      {/**given the domain of the email address, if it ends with "@shellfax.com.com", assign the role "vendor", otherwise "customer" */}
+      const role = email.endsWith("@shellfax.com") ? "vendor" : "customer";
+
+      await setDoc(doc(db,"users", user.uid), {
+        email: email,
+        role: role,
+    });
+
+    {/**based on the users role, it will navigate to the appropriate page */}
+    if (role === "vendor") {
+      navigate("/vendorProduct");
+    } else {
+      navigate("/");
+    }
+      
     } catch (err) {
       setError(String(err) || "Sign up failed");
     }

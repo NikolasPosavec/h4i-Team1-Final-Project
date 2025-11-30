@@ -16,6 +16,7 @@ import Landing from "./pages/Landing";
 import Contact from "./pages/Contact";
 import SearchResults from "./pages/SearchResults";
 import CarDetails from "./pages/CarDetails";
+import Vendor from "./pages/Vendor";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
@@ -108,6 +109,18 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/VendorProduct"
+          element={
+            <ProtectedRoute>
+              <Vendor />
+            </ProtectedRoute>
+          }
+        />
+
+
+      
+      
       </Routes>
     </BrowserRouter>
   );
