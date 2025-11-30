@@ -18,7 +18,13 @@ import SearchResults from "./pages/SearchResults";
 import CarDetails from "./pages/CarDetails";
 import Vendor from "./pages/Vendor";
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
+function ProtectedRoute({
+  children,
+  requireVendor = false,
+}: {
+  children: React.ReactNode;
+  requireVendor?: boolean;
+}) {
   const location = useLocation();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -37,6 +43,13 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (requireVendor) {
+    const isVendorUser = user?.email && user.email.endsWith("@shellfax.com");
+    if (!isVendorUser) {
+      return <Navigate to="/" replace />;
+    }
   }
 
   return <>{children}</>;
@@ -112,15 +125,11 @@ function App() {
         <Route
           path="/VendorProduct"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireVendor={true}>
               <Vendor />
             </ProtectedRoute>
           }
         />
-
-
-      
-      
       </Routes>
     </BrowserRouter>
   );

@@ -2,13 +2,25 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaHome } from "react-icons/fa";
 import { IoIosContacts } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import type { User } from "firebase/auth";
 import shellfaxLogo from "../assets/images/shellfax-logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return unsub;
+  }, []);
+
+  const isVendorUser = user?.email?.endsWith("@shellfax.com") ?? false;
 
   const handleLogout = async () => {
     try {
@@ -24,15 +36,22 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
         {/* Logo on the left */}
         <Link to="/" className="flex items-center">
-          <img
-            src={shellfaxLogo}
-            alt="Shellfax Logo"
-            className="h-16 w-auto"
-          />
+          <img src={shellfaxLogo} alt="Shellfax Logo" className="h-16 w-auto" />
         </Link>
 
         {/* Navigation icons on the right */}
         <div className="flex items-center space-x-4">
+          {isVendorUser && (
+            <Link to="/VendorProduct" aria-label="Vendor Dashboard">
+              <button
+                type="button"
+                className="bg-yellow-300 text-black px-4 py-2 rounded-2xl text-md font-medium hover:bg-yellow-400"
+                aria-label="Vendor Dashboard"
+              >
+                Manage Inventory
+              </button>
+            </Link>
+          )}
           <Link to="/" aria-label="Home">
             <FaHome color="yellow" size={30} />
           </Link>
