@@ -53,12 +53,14 @@ export default function CarDetails() {
 
     //check if cart already has 2 items
     if (cartItems.length >= 2) {
-      alert("Cart is full! Maximum 2 vehicles allowed. Please remove an item first.");
+      alert(
+        "Cart is full! Maximum 2 vehicles allowed. Please remove an item first."
+      );
       return;
     }
 
     //check if car is already in cart
-    if (cartItems.some(item => item.id === car.id)) {
+    if (cartItems.some((item) => item.id === car.id)) {
       alert("This vehicle is already in your cart!");
       return;
     }
@@ -67,7 +69,7 @@ export default function CarDetails() {
     const updatedCart = [...cartItems, car];
     setCartItems(updatedCart);
     localStorage.setItem("shellfax_cart", JSON.stringify(updatedCart));
-    
+
     //show success message and redirect to cart
     alert("Vehicle added to cart!");
     navigate("/cart");
@@ -79,15 +81,15 @@ export default function CarDetails() {
       <div className="flex-1 flex items-center">
         <div className="container mx-auto px-4 ">
           {car && (
-            <div className="flex sm:flex-row flex-col">
-              <div className="w-1/2 h-full object-cover border-2 border-yellow-500 rounded-md">
+            <div className="flex sm:flex-row flex-col w-full">
+              <div className="w-full sm:w-1/2 h-full object-cover border-2 border-yellow-500 rounded-md">
                 <img
                   src={car.image_url}
                   alt={car.model}
                   className="object-cover h-full w-full"
                 />
               </div>
-              <div className="flex flex-col pl-10 w-1/2">
+              <div className="flex flex-col pl-10 w-full sm:w-1/2">
                 <h1 className="text-4xl font-bold">
                   {car.year} {car.make} {car.model}
                 </h1>
@@ -95,7 +97,7 @@ export default function CarDetails() {
                 <div className="flex flex-col">
                   {/* First Row Icons container */}
                   <div className="flex my-4 sm:flex-row flex-col gap-4">
-                    <div className="flex items-center w-1/2">
+                    <div className="flex items-center w-full sm:w-1/2">
                       <div className="rounded-full p-1 flex items-center justify-center border-2 border-black">
                         <img
                           src="/src/assets/carIcons/mileage.svg"
@@ -107,7 +109,7 @@ export default function CarDetails() {
                         {car.mileage} miles
                       </p>
                     </div>
-                    <div className="flex items-center w-1/2">
+                    <div className="flex items-center w-full sm:w-1/2">
                       <div className="rounded-full p-1 flex items-center justify-center border-2 border-black">
                         <img
                           src="/src/assets/carIcons/drivetrain.svg"
@@ -122,7 +124,7 @@ export default function CarDetails() {
                   </div>
                   {/* Second Row Icons container */}
                   <div className="flex my-4 sm:flex-row flex-col gap-4">
-                    <div className="flex items-center w-1/2">
+                    <div className="flex items-center w-full sm:w-1/2">
                       <div className="rounded-full p-1 flex items-center justify-center border-2 border-black">
                         <img
                           src="/src/assets/carIcons/color.svg"
@@ -132,7 +134,7 @@ export default function CarDetails() {
                       </div>
                       <p className="text-gray-600 text-2xl pl-3">{car.color}</p>
                     </div>
-                    <div className="flex items-center w-1/2">
+                    <div className="flex items-center w-full sm:w-1/2">
                       <div className="rounded-full p-1 flex items-center justify-center border-2 border-black">
                         <img
                           src="/src/assets/carIcons/seats.svg"
@@ -151,9 +153,9 @@ export default function CarDetails() {
                       currency: "USD",
                     }).format(car.price)}
                   </p>
-                  <button 
+                  <button
                     onClick={handleAddToCart}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-xl text-gray-900 font-bold px-6 py-4 rounded-md transition-colors"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-xl text-gray-900 font-bold px-6 py-4 ml-4 rounded-md transition-colors"
                   >
                     Add to Cart
                   </button>
