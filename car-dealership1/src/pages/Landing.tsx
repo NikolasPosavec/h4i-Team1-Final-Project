@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { collection, getDocs, query, limit } from "firebase/firestore";
 import { db } from "../firebase/config";
 import SearchBar from "../components/SearchBar";
