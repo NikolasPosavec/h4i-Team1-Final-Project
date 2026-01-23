@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        var base = "/h4i-Team1-Final-Project/";
+        var path = location.pathname;
+        if (path.startsWith(base)) {
+          path = path.slice(base.length);
+        } else if (path.startsWith("/")) {
+          path = path.slice(1);
+        }
+        var query = location.search ? location.search.slice(1) : "";
+        var hash = location.hash ? location.hash.slice(1) : "";
+        var target =
+          base +
+          "?p=" +
+          encodeURIComponent(path) +
+          (query ? "&q=" + encodeURIComponent(query) : "") +
+          (hash ? "&h=" + encodeURIComponent(hash) : "");
+        location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

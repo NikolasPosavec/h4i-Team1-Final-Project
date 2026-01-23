@@ -12,6 +12,22 @@
     <link rel="stylesheet" crossorigin href="/h4i-Team1-Final-Project/assets/index-DyOTax5c.css">
   </head>
   <body>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get("p");
+        if (!p) return;
+        var base = "/h4i-Team1-Final-Project/";
+        var q = params.get("q");
+        var h = params.get("h");
+        var newUrl =
+          base +
+          (p ? p.replace(/^\//, "") : "") +
+          (q ? "?" + q : "") +
+          (h ? "#" + h : "");
+        window.history.replaceState(null, "", newUrl);
+      })();
+    </script>
     <div id="root"></div>
   </body>
 </html>
